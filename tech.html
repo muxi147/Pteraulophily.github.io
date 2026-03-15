@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蜂翼传粉 - 技术壁垒</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ===== 技术模块 ===== */
+        .tech-module {
+            margin-bottom: 60px;
+        }
+
+        .tech-module:last-child {
+            margin-bottom: 0;
+        }
+
+        .tech-module-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .tech-num {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-blue), #4080FF);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .tech-module-header h2 {
+            font-size: 24px;
+            color: var(--dark-text);
+        }
+
+        .tech-module-desc {
+            font-size: 15px;
+            line-height: 1.9;
+            color: var(--body-text);
+            margin-bottom: 24px;
+            padding: 20px 24px;
+            background: var(--light-bg);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        /* ===== 图文并排 ===== */
+        .tech-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .tech-content.reverse {
+            direction: rtl;
+        }
+
+        .tech-content.reverse > * {
+            direction: ltr;
+        }
+
+        .tech-img-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tech-img-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .tech-img-item img {
+            width: 100%;
+            display: block;
+        }
+
+        .tech-img-caption {
+            padding: 10px 16px;
+            background: var(--light-bg);
+            font-size: 13px;
+            color: var(--light-text);
+            text-align: center;
+        }
+
+        /* ===== 参数表 ===== */
+        .tech-table-wrap {
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .tech-table-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 12px;
+            padding-left: 12px;
+            border-left: 3px solid var(--primary-green);
+        }
+
+        /* ===== 数据要点 ===== */
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .key-point {
+            padding: 16px 20px;
+            background: var(--light-bg);
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .key-point-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: #EFF4FF;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .key-point-text {
+            font-size: 14px;
+            color: var(--body-text);
+            line-height: 1.6;
+        }
+
+        .key-point-text strong {
+            color: var(--dark-text);
+        }
+
+        /* ===== 翼型参数 ===== */
+        .spec-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .spec-list li {
+            padding: 12px 16px;
+            background: var(--light-bg);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--body-text);
+            border-left: 3px solid var(--primary-green);
+        }
+
+        .spec-list li strong {
+            color: var(--dark-text);
+        }
+
+        /* ===== 专利 ===== */
+        .patents-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid var(--light-bg);
+        }
+
+        .patent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .patent-item {
+            padding: 20px;
+            background: var(--light-bg);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary-green);
+            transition: var(--transition);
+        }
+
+        .patent-item:hover {
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .patent-type {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .patent-type.granted {
+            background: #E8FFF3;
+            color: var(--primary-green);
+        }
+
+        .patent-type.pending {
+            background: #FFF7E8;
+            color: #F7BA1E;
+        }
+
+        .patent-name {
+            font-size: 14px;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .tech-content {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-content.reverse {
+                direction: ltr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">蜂翼<span>传粉</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="product.html">产品介绍</a></li>
+                <li><a href="advantage.html">产品优势</a></li>
+                <li><a href="tech.html" class="active">技术壁垒</a></li>
+                <li><a href="ai-vision.html">AI识别</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="container">
+        <h1 class="page-title">核心技术壁垒</h1>
+        <p class="sub-title">深耕农业科技，打造不可复制的技术护城河</p>
+
+        <!-- 技术1：航天级气动控制 -->
+        <div class="tech-module">
+            <div class="tech-module-header">
+                <span class="tech-num">1</span>
+                <h2>航天级气动控制技术</h2>
+            </div>
+            <div class="tech-module-desc">
+                自主研发的反向对转双旋翼系统，经 1000 余次流体力学仿真优化，可削弱 40% 的乱流扰动。在 6 级风环下，花粉漂移率能稳定控制在 15% 以内，较行业平均水平（30%-40%）降低一半以上；针对丘陵、山地等复杂地形，通过地形高程算法动态调整旋翼转速，投放误差可压缩至 8%，在山西果园试点中，较传统单旋翼设备提升50%的作业精度。
+            </div>
+            <div class="tech-content">
+                <div>
+                    <div class="key-points">
+                        <div class="key-point">
+                            <div class="key-point-icon">40%</div>
+                            <div class="key-point-text"><strong>乱流削弱率</strong><br>1000+次流体力学仿真优化</div>
+                        </div>
+                        <div class="key-point">
+                            <div class="key-point-icon">15%</div>
+                            <div class="key-point-text"><strong>花粉漂移率</strong><br>6级风环下稳定控制</div>
+                        </div>
+                        <div class="key-point">
+                            <div class="key-point-icon">8%</div>
+                            <div class="key-point-text"><strong>投放误差</strong><br>地形高程算法动态调整</div>
+                        </div>
+                        <div class="key-point">
+                            <div class="key-point-icon">50%</div>
+                            <div class="key-point-text"><strong>精度提升</strong><br>较传统单旋翼设备</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-img-group">
+                    <div class="tech-img-item">
+                        <img src="images/image3.png" alt="反向对转双旋翼">
+                        <div class="tech-img-caption">反向对转双旋翼系统示意图</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 技术2：反向对转双旋翼设计 -->
+        <div class="tech-module">
+            <div class="tech-module-header">
+                <span class="tech-num">2</span>
+                <h2>反向对转双旋翼设计</h2>
+            </div>
+            <div class="key-points">
+                <div class="key-point">
+                    <div class="key-point-icon">↓</div>
+                    <div class="key-point-text"><strong>下洗气流速度降至0.8m/s</strong>（行业平均2.5m/s），花粉存活率提升至91.7%</div>
+                </div>
+                <div class="key-point">
+                    <div class="key-point-icon">⟳</div>
+                    <div class="key-point-text"><strong>15°相位差控制</strong>实现涡流抵消效率82%（风洞实测数据）</div>
+                </div>
+            </div>
+
+            <div class="tech-content reverse">
+                <div>
+                    <div class="tech-table-title">旋翼设计参数</div>
+                    <div class="tech-table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>参数</th>
+                                    <th>数值</th>
+                                    <th>设计依据</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>旋翼直径</td>
+                                    <td class="highlight">550 mm</td>
+                                    <td>风洞试验最优升阻比区间</td>
+                                </tr>
+                                <tr>
+                                    <td>旋翼间距</td>
+                                    <td class="highlight">1.2×直径</td>
+                                    <td>涡流干涉最小化（CFD验证）</td>
+                                </tr>
+                                <tr>
+                                    <td>相位差</td>
+                                    <td class="highlight">15°±0.5°</td>
+                                    <td>专利ZL20242012345X</td>
+                                </tr>
+                                <tr>
+                                    <td>材料</td>
+                                    <td class="highlight">TC4钛合金+陶瓷涂层</td>
+                                    <td>比强度达260 MPa·m³/kg</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tech-img-group">
+                    <div class="tech-img-item">
+                        <img src="images/image5.png" alt="下洗气流速度场">
+                        <div class="tech-img-caption">下洗气流速度场分析（均匀性提升-24.7%）</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 技术3：低扰动翼型优化 -->
+        <div class="tech-module">
+            <div class="tech-module-header">
+                <span class="tech-num">3</span>
+                <h2>低扰动翼型优化</h2>
+            </div>
+            <div class="tech-content">
+                <div>
+                    <div class="tech-table-title">翼型选择</div>
+                    <ul class="spec-list">
+                        <li><strong>主翼型：</strong>NACA 4412（升力系数CL=1.2，阻力系数CD=0.03）</li>
+                        <li><strong>叶尖修型：</strong>后掠15°（降低叶尖涡强度30%）</li>
+                    </ul>
+
+                    <div class="tech-table-title">风洞测试标准</div>
+                    <div class="tech-table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>测试项</th>
+                                    <th>结果</th>
+                                    <th>标准</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>风洞湍流强度</td>
+                                    <td class="highlight">8.3%</td>
+                                    <td>ISO 1151-1985</td>
+                                </tr>
+                                <tr>
+                                    <td>噪声频谱</td>
+                                    <td class="highlight">72 dB@1m</td>
+                                    <td>ICAO Annex 16</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tech-table-title">实验验证（风洞实测数据）</div>
+                    <div class="tech-table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>转速（rpm）</th>
+                                    <th>下洗风速（m/s）</th>
+                                    <th>湍流强度（%）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>3000</td>
+                                    <td class="highlight">0.65</td>
+                                    <td class="highlight">7.8</td>
+                                </tr>
+                                <tr>
+                                    <td>4500</td>
+                                    <td class="highlight">0.82</td>
+                                    <td class="highlight">9.1</td>
+                                </tr>
+                                <tr>
+                                    <td>行业平均值</td>
+                                    <td>2.3-3.5</td>
+                                    <td>15-20</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tech-img-group">
+                    <div class="tech-img-item">
+                        <img src="images/image4.jpeg" alt="翼型优化报告">
+                        <div class="tech-img-caption">翼型优化仿真分析</div>
+                    </div>
+                    <div class="tech-img-item">
+                        <img src="images/image6.png" alt="下洗风速对比分析">
+                        <div class="tech-img-caption">下洗风速与湍流强度对比分析</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 核心知识产权 -->
+        <div class="patents-section">
+            <h2 class="section-title">核心知识产权</h2>
+            <div class="patent-grid">
+                <div class="patent-item">
+                    <span class="patent-type granted">已授权</span>
+                    <div class="patent-name">发明专利：一种基于机器视觉的果树无人机精准授粉控制方法</div>
+                </div>
+                <div class="patent-item">
+                    <span class="patent-type granted">已授权</span>
+                    <div class="patent-name">实用新型专利：多旋翼无人机自适应仿地飞行装置</div>
+                </div>
+                <div class="patent-item">
+                    <span class="patent-type granted">已登记</span>
+                    <div class="patent-name">软件著作权：蜂翼智能授粉飞行控制系统V1.0</div>
+                </div>
+                <div class="patent-item">
+                    <span class="patent-type pending">受理中</span>
+                    <div class="patent-name">发明专利：一种适用于山地果园的垂起固定翼无人机导航算法</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2026 蜂翼传粉 版权所有 | 天衍-T40 无人机精准授粉系统</p>
+    </footer>
+</body>
+</html>

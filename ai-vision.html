@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蜂翼传粉 - AI识别系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ===== 系统介绍 ===== */
+        .system-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .system-intro-text h2 {
+            font-size: 26px;
+            color: var(--dark-text);
+            margin-bottom: 16px;
+        }
+
+        .system-intro-text p {
+            font-size: 15px;
+            line-height: 1.9;
+            color: var(--body-text);
+            margin-bottom: 16px;
+        }
+
+        .system-intro-img {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .system-intro-img img {
+            width: 100%;
+            display: block;
+        }
+
+        /* ===== 特征提取技术 ===== */
+        .feature-section {
+            margin-bottom: 50px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-item {
+            padding: 24px;
+            background: var(--light-bg);
+            border-radius: var(--radius);
+            transition: var(--transition);
+            border-top: 3px solid transparent;
+        }
+
+        .feature-item:nth-child(1) { border-top-color: var(--primary-blue); }
+        .feature-item:nth-child(2) { border-top-color: var(--primary-green); }
+        .feature-item:nth-child(3) { border-top-color: #F7BA1E; }
+        .feature-item:nth-child(4) { border-top-color: #F53F3F; }
+        .feature-item:nth-child(5) { border-top-color: #722ED1; }
+        .feature-item:nth-child(6) { border-top-color: #0FC6C2; }
+
+        .feature-item:hover {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .feature-item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 14px;
+        }
+
+        .feature-item:nth-child(1) .feature-item-icon { background: #EFF4FF; }
+        .feature-item:nth-child(2) .feature-item-icon { background: #E8FFF3; }
+        .feature-item:nth-child(3) .feature-item-icon { background: #FFF7E8; }
+        .feature-item:nth-child(4) .feature-item-icon { background: #FFECE8; }
+        .feature-item:nth-child(5) .feature-item-icon { background: #F5E8FF; }
+        .feature-item:nth-child(6) .feature-item-icon { background: #E8FFFB; }
+
+        .feature-item h4 {
+            font-size: 16px;
+            color: var(--dark-text);
+            margin-bottom: 8px;
+        }
+
+        .feature-item p {
+            font-size: 13px;
+            color: var(--body-text);
+            line-height: 1.7;
+        }
+
+        /* ===== 模型融合 ===== */
+        .model-section {
+            margin-bottom: 50px;
+        }
+
+        .model-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .model-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .model-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .model-card:nth-child(1)::before { background: linear-gradient(90deg, var(--primary-blue), #4080FF); }
+        .model-card:nth-child(2)::before { background: linear-gradient(90deg, var(--primary-green), #57D9A3); }
+        .model-card:nth-child(3)::before { background: linear-gradient(90deg, #F7BA1E, #FFCF5C); }
+
+        .model-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .model-card h3 {
+            font-size: 20px;
+            color: var(--dark-text);
+            margin-bottom: 12px;
+        }
+
+        .model-card-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .model-card:nth-child(1) .model-card-tag { background: #EFF4FF; color: var(--primary-blue); }
+        .model-card:nth-child(2) .model-card-tag { background: #E8FFF3; color: var(--primary-green); }
+        .model-card:nth-child(3) .model-card-tag { background: #FFF7E8; color: #D4920B; }
+
+        .model-detail {
+            margin-bottom: 12px;
+        }
+
+        .model-detail-label {
+            font-size: 12px;
+            color: var(--light-text);
+            margin-bottom: 4px;
+        }
+
+        .model-detail-value {
+            font-size: 14px;
+            color: var(--body-text);
+            line-height: 1.6;
+        }
+
+        /* ===== 案例展示 ===== */
+        .case-section {
+            margin-top: 50px;
+        }
+
+        .case-desc {
+            text-align: center;
+            font-size: 15px;
+            color: var(--body-text);
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .result-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .result-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .result-card-img {
+            overflow: hidden;
+        }
+
+        .result-card-img img {
+            width: 100%;
+            display: block;
+        }
+
+        .result-card-body {
+            padding: 20px;
+        }
+
+        .result-card-body h4 {
+            font-size: 16px;
+            color: var(--dark-text);
+            margin-bottom: 8px;
+        }
+
+        .result-card-body p {
+            font-size: 13px;
+            color: var(--body-text);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .system-intro {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid,
+            .model-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">蜂翼<span>传粉</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="product.html">产品介绍</a></li>
+                <li><a href="advantage.html">产品优势</a></li>
+                <li><a href="tech.html">技术壁垒</a></li>
+                <li><a href="ai-vision.html" class="active">AI识别</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="container">
+        <h1 class="page-title">AI授粉需求识别系统</h1>
+        <p class="sub-title">基于机器学习的智能植物授粉需求识别，优化授粉流程</p>
+
+        <!-- 系统介绍 -->
+        <div class="system-intro">
+            <div class="system-intro-text">
+                <h2>计算机视觉 × 机器学习</h2>
+                <p>本项目开发了一个基于计算机视觉和机器学习的系统，其能够在学习大量的植物图像后自动识别需要授粉的植物，从而优化授粉流程，提高农业自动化水平。</p>
+                <p>系统融合了先进的图像特征提取技术与多模型融合策略，在向日葵授粉识别任务中达到了 <strong style="color: var(--primary-blue); font-size: 18px;">95%+</strong> 的准确率，ROC曲线AUC值达到 <strong style="color: var(--primary-blue); font-size: 18px;">1.00</strong>。</p>
+            </div>
+            <div class="system-intro-img">
+                <img src="images/image9.png" alt="预测可视化">
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 图像特征提取 -->
+        <div class="feature-section">
+            <h2 class="section-title">先进的图像特征提取技术</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-item-icon">🖼️</div>
+                    <h4>图像增强</h4>
+                    <p>使用对比度增强、锐化、轻微模糊等方法提高图像质量，使模型更容易识别花朵特征。</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-item-icon">🎨</div>
+                    <h4>颜色特征</h4>
+                    <p>提取HSV和LAB颜色空间的直方图，分析花朵的颜色分布，捕捉色彩差异。</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-item-icon">🔲</div>
+                    <h4>纹理特征</h4>
+                    <p>使用HOG（方向梯度直方图）和LBP（局部二值模式）提取花朵的纹理信息。</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-item-icon">📐</div>
+                    <h4>形状特征</h4>
+                    <p>计算花朵的面积、周长、长宽比、圆形度等几何特征，量化形态差异。</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-item-icon">✏️</div>
+                    <h4>边缘特征</h4>
+                    <p>采用多尺度Canny边缘检测，分析花朵的轮廓清晰度，识别结构边界。</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-item-icon">📊</div>
+                    <h4>图像统计特征</h4>
+                    <p>计算灰度图像的均值、标准差、偏度、峰度等统计量，全面描述图像分布。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 多模型融合 -->
+        <div class="model-section">
+            <h2 class="section-title">多模型融合技术</h2>
+            <div class="model-cards">
+                <div class="model-card">
+                    <h3>SVM</h3>
+                    <span class="model-card-tag">支持向量机</span>
+                    <div class="model-detail">
+                        <div class="model-detail-label">核心优势</div>
+                        <div class="model-detail-value">高维数据表现好，泛化能力强</div>
+                    </div>
+                    <div class="model-detail">
+                        <div class="model-detail-label">适用场景</div>
+                        <div class="model-detail-value">小样本、特征清晰的数据</div>
+                    </div>
+                    <div class="model-detail">
+                        <div class="model-detail-label">协同作用</div>
+                        <div class="model-detail-value">获取特征显著的高维数据</div>
+                    </div>
+                </div>
+                <div class="model-card">
+                    <h3>随机森林</h3>
+                    <span class="model-card-tag">Random Forest</span>
+                    <div class="model-detail">
+                        <div class="model-detail-label">核心优势</div>
+                        <div class="model-detail-value">抗过拟合，特征重要性分析</div>
+                    </div>
+                    <div class="model-detail">
+                        <div class="model-detail-label">适用场景</div>
+                        <div class="model-detail-value">高维、噪声数据</div>
+                    </div>
+                    <div class="model-detail">
+                        <div class="model-detail-label">协同作用</div>
+                        <div class="model-detail-value">提供特征重要性指导特征筛选</div>
+                    </div>
+                </div>
+                <div class="model-card">
+                    <h3>XGBoost</h3>
+                    <span class="model-card-tag">极端梯度提升</span>
+                    <div class="model-detail">
+                        <div class="model-detail-label">核心优势</div>
+                        <div class="model-detail-value">高效、支持正则化，适合复杂关系</div>
+                    </div>
+                    <div class="model-detail">
+                        <div class="model-detail-label">适用场景</div>
+                        <div class="model-detail-value">大规模数据、需高精度预测</div>
+                    </div>
+                    <div class="model-detail">
+                        <div class="model-detail-label">协同作用</div>
+                        <div class="model-detail-value">通过Stacking融合其他模型提升鲁棒性</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 案例应用 -->
+        <div class="case-section">
+            <h2 class="section-title">案例应用：向日葵授粉识别</h2>
+            <p class="case-desc">以无人机给向日葵授粉为例，展示本系统的实际应用效果。通过多维度评估验证模型的可靠性与实用性。</p>
+
+            <div class="result-grid">
+                <div class="result-card">
+                    <div class="result-card-img">
+                        <img src="images/image7.png" alt="ROC曲线">
+                    </div>
+                    <div class="result-card-body">
+                        <h4>ROC曲线分析</h4>
+                        <p>曲线下面积（AUC）为1.00，表明该模型整体区分能力优越，能够正确区分植物是否需要无人机授粉，达到理想分类效果。</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <div class="result-card-img">
+                        <img src="images/image8.png" alt="混淆矩阵">
+                    </div>
+                    <div class="result-card-body">
+                        <h4>混淆矩阵</h4>
+                        <p>对角线数字为8和20，表明所有测试集中的图像都被正确分类，直观地展示了模型的准确性高达95%以上，几乎不存在误判。</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <div class="result-card-img">
+                        <img src="images/image9.png" alt="预测可视化">
+                    </div>
+                    <div class="result-card-body">
+                        <h4>预测可视化</h4>
+                        <p>随机选择16个测试样本展示预测结果，用颜色区分预测准确性——绿色为正确，红色为错误，直观展示模型在实际运用中的效果显著。</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <div class="result-card-img">
+                        <img src="images/image10.png" alt="PCA降维可视化">
+                    </div>
+                    <div class="result-card-body">
+                        <h4>PCA降维可视化</h4>
+                        <p>使用主成分分析(PCA)将高维特征降至2维可视化，直观展示特征空间中不同类别（向日葵/其他）的分布情况，验证特征提取的有效性。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2026 蜂翼传粉 版权所有 | 天衍-T40 无人机精准授粉系统</p>
+    </footer>
+</body>
+</html>
